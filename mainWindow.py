@@ -6,6 +6,7 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtGui import QAction
 from patientCard import PatientCard
+from csvProcessor import process_csv
 
 class DashboardWindow(QMainWindow):
 	def __init__(self):
@@ -37,10 +38,17 @@ class DashboardWindow(QMainWindow):
 		self.stackedLayout = QStackedLayout()
 		self.mainLayout.addLayout(self.stackedLayout)
 		#data
-		self.patients = [
+		data = process_csv('Feeding Dashboard data.csv')
+		""" self.patients = [
             {"id": f"{100 + i}", "name": f"Patient {i}", "bmi": f"{18 + i*0.5:.1f}", "status": "Yes" if i % 2 == 0 else "No"}
             for i in range(100) 
-        ]
+        ] """
+		#self.patients = [{"id": f"{data['encounterId']}", "bmi": f"{18 + i*0.5:.1f}", "status": "Yes" if i % 2 == 0 else "No"} for i in range(len(data))]
+		ids = []
+		encounterIDs = data['encounterId']
+		for key, item in encounterIDs.items():
+			ids.append(item)
+		self.patients = [{"id": f"{i}", "bmi": f"{18 + i*0.5:.1f}", "status": "Yes" if i % 2 == 0 else "No"} for i in ids]
 		self.patients_per_page = 12
 		self.pages = []
 		self.total_pages = math.ceil(len(self.patients) / self.patients_per_page)

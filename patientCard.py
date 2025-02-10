@@ -1,6 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (QFrame, QLabel, QVBoxLayout, QPushButton)
 from patientDetail import PatientDetailDialog
+from csvProcessor import process_csv
 
 class PatientCard(QFrame):
 	def __init__(self, data):
@@ -10,7 +11,6 @@ class PatientCard(QFrame):
             background-color: #728281;
             border-radius: 5px;
 			padding: 5px;
-
             border: 1px solid black;
         """)
 		self.data = data
