@@ -1,2 +1,2 @@
 # Patient-Dashboard
-Systems Development Project
+Systems Development Group Project
