@@ -38,7 +38,7 @@ class DashboardWindow(QMainWindow):
 		self.stackedLayout = QStackedLayout()
 		self.mainLayout.addLayout(self.stackedLayout)
 		
-		data = process_csv('Feeding Dashboard data.csv')
+		data = process_csv()
 		
 
 		""" self.patients = []
@@ -164,9 +164,6 @@ class DashboardWindow(QMainWindow):
 
 	def open_file(self):
 		file_dialog = QFileDialog()
-		file_path, _ = file_dialog.getOpenFileName(self, "Open CSV File", "", "CSV Files (*.csv);;All Files (*)")
-		if file_path:
-			self.handle_csv(file_path)
-
-	def handle_csv(file_path):
-		process_csv(file_path)
+		file_name, _ = file_dialog.getOpenFileName(self, "Open CSV File", "", "CSV Files (*.csv);;All Files (*)")
+		if file_name:
+			process_csv(file_name)
