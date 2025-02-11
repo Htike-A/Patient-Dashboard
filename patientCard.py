@@ -11,20 +11,20 @@ class PatientCard(QFrame):
             background-color: #728281;
             border-radius: 5px;
 			padding: 5px;
-            border: 1px solid black;
+
         """)
 		self.data = data
 
 		name_label = QLabel(f"👤 ID: {data["id"]}")
-		bmi_label = QLabel(f"BMI: ")
-		condition_label = QLabel(f"Referral: {data["status"]}")
+		bmi_label = QLabel(f"BMI: {data["bmi"]:.2f}")
+		condition_label = QLabel(f"Referral: {data["referral"]}")
 		layout = QVBoxLayout(self)
 
 		# Aligning text
 		name_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 		bmi_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 		condition_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-		if data["status"] == 'Yes' :
+		if data["referral"] == 'No' :
 			condition_label.setStyleSheet(
 				"""
 				color: red;
@@ -51,7 +51,7 @@ class PatientCard(QFrame):
 				QPushButton {
 					color: black;
 
-					border: 1px solid gray;
+					border: 1px solid black;
 				}
 				QPushButton:hover {
 					color: black;

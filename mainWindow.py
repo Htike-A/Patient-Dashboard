@@ -44,11 +44,22 @@ class DashboardWindow(QMainWindow):
             for i in range(100) 
         ] """
 		#self.patients = [{"id": f"{data['encounterId']}", "bmi": f"{18 + i*0.5:.1f}", "status": "Yes" if i % 2 == 0 else "No"} for i in range(len(data))]
-		ids = []
+		self.patients = []
 		encounterIDs = data['encounterId']
+		bmi = data['bmi']
+		referral = data['referral']
 		for key, item in encounterIDs.items():
-			ids.append(item)
-		self.patients = [{"id": f"{i}", "bmi": f"{18 + i*0.5:.1f}", "status": "Yes" if i % 2 == 0 else "No"} for i in ids]
+			self.patients.append({"id": item})
+		for index, item in enumerate(bmi):
+			self.patients[index]['bmi'] = item
+		for index, item in enumerate(referral):
+			if item == 1:
+				self.patients[index]['referral'] = 'Yes'
+			else:
+				self.patients[index]['referral'] = 'No'
+		#self.patients = [{"id": f"{i}", "bmi": f"{18 + i*0.5:.1f}", "status": "Yes" if i % 2 == 0 else "No"} for i in ids]
+		#self.patients = [{"id": f"{i}" , "bmi": f"{j}", "status": f"{k}" } for i in {ids}, for j in {bmis}, for k in {referrals} ]
+		
 		self.patients_per_page = 12
 		self.pages = []
 		self.total_pages = math.ceil(len(self.patients) / self.patients_per_page)
