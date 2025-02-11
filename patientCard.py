@@ -15,16 +15,19 @@ class PatientCard(QFrame):
         """)
 		self.data = data
 
-		name_label = QLabel(f"👤 ID: {data["id"]}")
-		bmi_label = QLabel(f"BMI: {data["bmi"]:.2f}")
-		condition_label = QLabel(f"Referral: {data["referral"]}")
+		name_label = QLabel(f"👤 ID: {self.data["encounterId"]}")
+		bmi_label = QLabel(f"BMI: {self.data["bmi"]:.2f}")
+		if self.data['referral'] == 1:
+			condition_label = QLabel(f"Referral: Yes")
+		else:
+			condition_label = QLabel(f"Referral: No")
 		layout = QVBoxLayout(self)
 
 		# Aligning text
 		name_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 		bmi_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 		condition_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-		if data["referral"] == 'No' :
+		if self.data["referral"] == 0 :
 			condition_label.setStyleSheet(
 				"""
 				color: red;

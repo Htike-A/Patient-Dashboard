@@ -37,14 +37,11 @@ class DashboardWindow(QMainWindow):
 
 		self.stackedLayout = QStackedLayout()
 		self.mainLayout.addLayout(self.stackedLayout)
-		#data
+		
 		data = process_csv('Feeding Dashboard data.csv')
-		""" self.patients = [
-            {"id": f"{100 + i}", "name": f"Patient {i}", "bmi": f"{18 + i*0.5:.1f}", "status": "Yes" if i % 2 == 0 else "No"}
-            for i in range(100) 
-        ] """
-		#self.patients = [{"id": f"{data['encounterId']}", "bmi": f"{18 + i*0.5:.1f}", "status": "Yes" if i % 2 == 0 else "No"} for i in range(len(data))]
-		self.patients = []
+		
+
+		""" self.patients = []
 		encounterIDs = data['encounterId']
 		bmi = data['bmi']
 		referral = data['referral']
@@ -56,9 +53,9 @@ class DashboardWindow(QMainWindow):
 			if item == 1:
 				self.patients[index]['referral'] = 'Yes'
 			else:
-				self.patients[index]['referral'] = 'No'
-		#self.patients = [{"id": f"{i}", "bmi": f"{18 + i*0.5:.1f}", "status": "Yes" if i % 2 == 0 else "No"} for i in ids]
-		#self.patients = [{"id": f"{i}" , "bmi": f"{j}", "status": f"{k}" } for i in {ids}, for j in {bmis}, for k in {referrals} ]
+				self.patients[index]['referral'] = 'No' """
+		self.patients = data
+		
 		
 		self.patients_per_page = 12
 		self.pages = []
@@ -169,7 +166,7 @@ class DashboardWindow(QMainWindow):
 		file_dialog = QFileDialog()
 		file_path, _ = file_dialog.getOpenFileName(self, "Open CSV File", "", "CSV Files (*.csv);;All Files (*)")
 		if file_path:
-			self.process_csv(file_path)
+			self.handle_csv(file_path)
 
-	def process_csv(file_path):
-		pass
+	def handle_csv(file_path):
+		process_csv(file_path)
