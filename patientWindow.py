@@ -25,20 +25,23 @@ class PatientDisplay():
 			row = 3
 			cols = 4
 			lst = []
+			
 			if self.selected == 'Referred':
-				for i in range (len(patients)):
-					if patients[i]['referral'] == 1:
-						lst.append(patient[i])
-						patients = lst
-			elif self.selected == 'Not referred':
-				for i in range (len(patients)):
-					if patients[i]['referral'] == 0:
-						lst.append(patient[i])
-						patients = lst
-			else: 
-				patients = patients
-
-			for index, patient in enumerate(patients):
+				for i in patients:
+					if i['referral'] == 1:
+						lst.append(i)
+			
+						
+			elif self.selected == 'Not Referred':
+				for i in patients:
+					if i['referral'] == 0:
+						lst.append(i)
+			elif self.selected == "All":
+				lst = patients						
+			else : 
+				lst = patients
+				
+			for index, patient in enumerate(lst):
 				card = PatientCard(patient)
 				row = index // cols 
 				col = index % cols   

@@ -14,7 +14,7 @@ from new_window import NewWindow
 
 
 class DashboardWindow(QMainWindow):
-	def __init__(self, data = None):
+	def __init__(self):
 		super().__init__()
 		self.setWindowTitle("Patient Dashboard")
 		self.resize(1000, 600)
@@ -29,7 +29,7 @@ class DashboardWindow(QMainWindow):
 		menuBar = self.menuBar()
 		file_menu = menuBar.addMenu("File")
 
-		open_action = QAction("Open", self)
+		open_action = QAction("Open a new csv", self)
 		open_action.triggered.connect(self.open_file)
 
 		file_menu.addAction(open_action)
@@ -51,4 +51,3 @@ class DashboardWindow(QMainWindow):
 			self.newWindow = NewWindow(data)
 			self.newWindow.show()
 			
-#create a new class for QStackedLayout

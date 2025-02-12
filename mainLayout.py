@@ -4,17 +4,18 @@ from PyQt6.QtWidgets import (QMainWindow, QVBoxLayout, QHBoxLayout, QLabel, QCom
 from patientCard import PatientCard
 from csvProcessor import process_csv
 from patientWindow import PatientDisplay
+
 class mainDisplay(QVBoxLayout):
 	def __init__(self, data = None):
 		super().__init__()
 		filter_layout = QHBoxLayout()
 		filter_layout.setAlignment(Qt.AlignmentFlag.AlignRight)
-
+		self.data = data
 		self.filter_options = QLabel("Filter")
 		self.dropdown = QComboBox()
-		self.dropdown.addItems(["None", "Referred", "Not Referred"])
+		self.dropdown.addItems(["All", "Referred", "Not Referred"])
 		self.selection = self.dropdown.currentText
-		#self.dropdown.currentTextChanged.connect(self.update_display)
+		self.dropdown.currentTextChanged.connect(self.update_filter)
 
 		filter_layout.addWidget(self.filter_options)
 		filter_layout.addWidget(self.dropdown)
@@ -23,11 +24,11 @@ class mainDisplay(QVBoxLayout):
 
 		self.stackedLayout = QStackedLayout()
 		self.addLayout(self.stackedLayout)
-		self.data = data		
 		if self.data == None:
-			data = process_csv('Feeding Dashboard data.csv')
-		else: data = self.data
-		display = PatientDisplay(self.stackedLayout, data, self.selection)
+			self.data = process_csv('Feeding Dashboard data.csv')
+		
+		display = PatientDisplay(self.stackedLayout, self.data, self.selection)
+		
 		self.pages = display.pages
 		""" self.patients = data		
 		self.patients_per_page = 12
@@ -42,8 +43,8 @@ class mainDisplay(QVBoxLayout):
 			self.pages.append(page)
 			self.stackedLayout.addWidget(page)	 """
 
-		navLayout = QHBoxLayout()
-		navLayout.setAlignment(Qt.AlignmentFlag.AlignRight)
+		self.navlayout = QHBoxLayout()
+		self.navlayout.setAlignment(Qt.AlignmentFlag.AlignRight)
 		self.btn_prev = QPushButton("⬅")
 		
 		self.btn_prev.setStyleSheet(
@@ -93,10 +94,10 @@ class mainDisplay(QVBoxLayout):
 			"""
 		)
 		self.btn_next.clicked.connect(self.next_page)
-		navLayout.addWidget(self.btn_prev)
-		navLayout.addWidget(self.page_counter)
-		navLayout.addWidget(self.btn_next)
-		self.addLayout(navLayout)
+		self.navlayout.addWidget(self.btn_prev)
+		self.navlayout.addWidget(self.page_counter)
+		self.navlayout.addWidget(self.btn_next)
+		self.addLayout(self.navlayout)
 
 		self.current_page = 0
 		self.update_page_number()
@@ -133,3 +134,19 @@ class mainDisplay(QVBoxLayout):
 		self.btn_next.setEnabled(self.current_page < len(self.pages) - 1)
 		self.btn_prev.setEnabled(self.current_page > 0)
 		self.page_counter.setText(f"Page {self.current_page + 1} of {len(self.pages)}")
+	def update_filter(self, selection):
+		self.filter_options.setText(selection)
+		""" newLayout = QStackedLayout()
+		self.stackedLayout.setParent(None)
+		self.stackedLayout = newLayout """
+		oldnav = self.navlayout
+		self.navlayout.setParent(None)
+		while self.stackedLayout.count() > 0:
+			widget = self.stackedLayout.widget(0)
+			self.stackedLayout.removeWidget(widget)
+			widget.deleteLater()
+		self.stackedLayout = QStackedLayout()
+		self.addLayout(self.stackedLayout)
+		self.addLayout(oldnav)
+		display2 = PatientDisplay(self.stackedLayout, self.data, selection)
+		self.pages = display2.pages
