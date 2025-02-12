@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def process_csv(file_name = 'Feeding Dashboard data.csv'):
+def process_csv(file_name ):
 	df = pd.read_csv(file_name)
 	df.dropna(inplace=True)
 

@@ -5,7 +5,7 @@ from mainWindow import DashboardWindow
 
 
 def main():
-    app = QApplication([])
+    app = QApplication(sys.argv)
     window = DashboardWindow()
     window.show()
     sys.exit(app.exec())

@@ -1,6 +1,7 @@
 import sys
 from PyQt6.QtGui import QKeySequence, QShortcut
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QDialog, QLabel, QDialogButtonBox
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCampus
 
 class PatientDetailDialog(QDialog):
     """Dialog to show patient details"""

@@ -30,13 +30,13 @@ class PatientCard(QFrame):
 		if self.data["referral"] == 0 :
 			condition_label.setStyleSheet(
 				"""
-				color: red;
+				color: green;
 				"""
 			)
 		else:
 			condition_label.setStyleSheet(
 				"""
-				color: green;
+				color: red;
 				"""
 			)
 
