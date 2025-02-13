@@ -2,6 +2,11 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (QFrame, QLabel, QVBoxLayout, QPushButton)
 from patientDetail import PatientDetailDialog
 from csvProcessor import process_csv
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
+
+
+
 
 class PatientCard(QFrame):
 	def __init__(self, data):
@@ -66,6 +71,8 @@ class PatientCard(QFrame):
 			"""
 		)
 		layout.addWidget(self.view_detail_button)
+
+
 	def view_detail(self):
 		detail_window = PatientDetailDialog(self.data)
 		detail_window.exec()
