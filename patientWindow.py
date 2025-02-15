@@ -28,7 +28,7 @@ class PatientDisplay():
             layout.addWidget(page)
 
     def filter_patients(self):
-        """Filters patients based on the 'selected' criteria."""
+
         if self.selected == "Referred":
             return [p for p in self.patients if p.get("referral") == 1]
         elif self.selected == "Not Referred":
@@ -36,7 +36,7 @@ class PatientDisplay():
         return self.patients
 
     def create_patient_page(self, patients):
-        """Creates a page layout displaying patient cards in a grid."""
+       
         page = QWidget()
         layout = QGridLayout()
         cols = 4  
