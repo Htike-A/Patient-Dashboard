@@ -11,9 +11,47 @@ class mainDisplay(QVBoxLayout):
 		filter_layout = QHBoxLayout()
 		filter_layout.setAlignment(Qt.AlignmentFlag.AlignRight)
 		self.data = data
-		self.filter_options = QLabel("Filter")
+		self.filter_options = QLabel("Filter By : ")
+		self.filter_options.setFixedSize(61, 40)
+		self.filter_options.setStyleSheet(
+			"""
+			QLabel{
+				font-size: 14px;
+				color: black;
+				padding: 0;
+			}						
+			""")
 		self.dropdown = QComboBox()
 		self.dropdown.addItems(["All", "Referred", "Not Referred"])
+		self.dropdown.setStyleSheet("""
+            QComboBox {
+                
+                color: black;
+
+
+                padding: 0;
+                font-size: 14px;
+            }
+            QComboBox:hover {
+                background-color: #738FA7;
+            }
+            QComboBox::drop-down {
+                border: none;
+                background: transparent;
+            }
+            QComboBox QAbstractItemView {
+				
+                background: #738FA7;
+                selection-background-color: #C3CEDA;
+                selection-color: #C3CEDA;
+                
+							  
+				min-width: 150px;  /* Minimum width */
+                max-width: 200px;  /* Maximum width */
+                min-height: 80px;  /* Minimum height */
+                max-height: 150px; /* Maximum height */
+            }
+        """)
 		self.selection = self.dropdown.currentText
 		self.dropdown.currentTextChanged.connect(self.update_filter)
 
@@ -45,7 +83,7 @@ class mainDisplay(QVBoxLayout):
 
 		self.navlayout = QHBoxLayout()
 		self.navlayout.setAlignment(Qt.AlignmentFlag.AlignRight)
-		self.btn_prev = QPushButton("⬅")
+		self.btn_prev = QPushButton("<")
 		
 		self.btn_prev.setStyleSheet(
 			"""
@@ -76,7 +114,7 @@ class mainDisplay(QVBoxLayout):
 				}
 		  	"""
 		)
-		self.btn_next = QPushButton("➡")
+		self.btn_next = QPushButton(">")
 
 		self.btn_next.setStyleSheet(
 			"""
@@ -135,11 +173,11 @@ class mainDisplay(QVBoxLayout):
 		self.btn_prev.setEnabled(self.current_page > 0)
 		self.page_counter.setText(f"Page {self.current_page + 1} of {len(self.pages)}")
 	def update_filter(self, selection):
-		self.filter_options.setText(selection)
+		#self.filter_options.setText(selection)
 		""" newLayout = QStackedLayout()
 		self.stackedLayout.setParent(None)
 		self.stackedLayout = newLayout """
-		oldnav = self.navlayout
+		""" oldnav = self.navlayout
 		self.navlayout.setParent(None)
 		while self.stackedLayout.count() > 0:
 			widget = self.stackedLayout.widget(0)
@@ -147,6 +185,19 @@ class mainDisplay(QVBoxLayout):
 			widget.deleteLater()
 		self.stackedLayout = QStackedLayout()
 		self.addLayout(self.stackedLayout)
-		self.addLayout(oldnav)
+		self.addLayout(oldnav) """
+		oldnav = self.navlayout
+		if self.layout() is not None:
+			self.layout().removeItem(oldnav)  # Remove `navlayout`
+		while self.stackedLayout.count() > 0:
+			widget = self.stackedLayout.widget(0)
+			self.stackedLayout.removeWidget(widget)
+			widget.deleteLater()
+		if self.layout() is not None:
+			self.layout().removeItem(self.stackedLayout)
+
+		self.stackedLayout = QStackedLayout()
+		self.layout().addLayout(self.stackedLayout)
+		self.layout().addLayout(oldnav)
 		display2 = PatientDisplay(self.stackedLayout, self.data, selection)
 		self.pages = display2.pages

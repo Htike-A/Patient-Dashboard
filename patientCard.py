@@ -13,7 +13,7 @@ class PatientCard(QFrame):
 		super().__init__()
 		self.setFixedSize(210, 185)
 		self.setStyleSheet("""
-            background-color: #728281;
+            background-color: #738FA7;
             border-radius: 5px;
 			padding: 5px;
 

@@ -20,7 +20,7 @@ class DashboardWindow(QMainWindow):
 		self.resize(1000, 600)
 
 		self.setStyleSheet("""
-            background-color: #1b2423;
+            background-color: #C3CEDA;
             border-radius: 5px;
 			padding: 10px;
         """)	
