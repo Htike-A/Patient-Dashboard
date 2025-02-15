@@ -201,3 +201,5 @@ class mainDisplay(QVBoxLayout):
 		self.layout().addLayout(oldnav)
 		display2 = PatientDisplay(self.stackedLayout, self.data, selection)
 		self.pages = display2.pages
+		self.current_page = 0
+		self.update_page_number()
