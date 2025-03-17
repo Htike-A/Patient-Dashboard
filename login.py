@@ -1,12 +1,8 @@
 import sys, math
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
-    QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QPushButton,
-    QStackedLayout, QFileDialog, QComboBox, QLineEdit, QMessageBox
+    QMainWindow, QWidget, QVBoxLayout, QLabel, QPushButton, QLineEdit, QMessageBox
 )
-from PyQt6.QtGui import QAction
-from csvProcessor import process_csv
-from new_window import NewWindow
 from styles import*
 from db import authenticate_user
 from mainWindow import DashboardWindow
@@ -15,7 +11,7 @@ from adminWindow import AdminWindow
 class Login(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Htikes Magic Medical Machine")
+        self.setWindowTitle("Patient Dashboard")
         self.resize(*window_default)
         self.setStyleSheet("background-color: #C3CEDA;")
 
