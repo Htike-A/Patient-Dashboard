@@ -1,11 +1,12 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
-    QMainWindow, QWidget,
+    QMainWindow, QWidget, QDialog,
     QLabel, QPushButton, QFileDialog, QMenuBar, QMessageBox
 )
 from PyQt6.QtGui import QAction
 from csvProcessor import process_csv
 from mainLayout import mainDisplay
+from countplot import CountPlotWindow
 
 class DashboardWindow(QMainWindow):
 	def __init__(self, data=None):
@@ -44,6 +45,11 @@ class DashboardWindow(QMainWindow):
 		file_menu.addAction(open_action)
 		open_action.triggered.connect(self.open_file)
 
+		vis_menu = menu_bar.addMenu("&Visualization")
+		vis_action = QAction("Show count plot", self)
+		vis_menu.addAction(vis_action)
+		vis_action.triggered.connect(self.open_vis)
+
 		logout_button = QPushButton("Log Out")
 		logout_button.clicked.connect(self.logout)
 		menu_bar.setCornerWidget(logout_button, Qt.Corner.TopRightCorner)
@@ -79,6 +85,10 @@ class DashboardWindow(QMainWindow):
 		self.new_window.show()
 		self.new_window.activateWindow()
 		self.new_window.raise_()
+
+	def open_vis(self):
+		self.plot = CountPlotWindow(self.data)
+		self.plot.show()
 
 	def logout(self):
 		from login import Login
