@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
     QMainWindow, QWidget,
-    QLabel, QPushButton, QFileDialog, QMenuBar
+    QLabel, QPushButton, QFileDialog, QMenuBar, QMessageBox
 )
 from PyQt6.QtGui import QAction
 from csvProcessor import process_csv
@@ -60,16 +60,19 @@ class DashboardWindow(QMainWindow):
 				border-radius: 5px;
 			}
 		""")
-				
+	
 		
 	def open_file(self):
 		file_dialog = QFileDialog()
 		file_name, _ = file_dialog.getOpenFileName(self, "Open CSV File", "", "CSV Files (*.csv);;All Files (*)")
-		if file_name:
-			#self.stackedLayout.removeWidget(display.pages)
+		print(_)
+		
+		if file_name and is_csv(file_name):
 			data = process_csv(file_name)
 
 			self.create_new_window(data)
+		else:
+			QMessageBox.warning(self, "Error", "The file must be in csv format!")
 
 	def create_new_window(self, data=None):
 		self.new_window = DashboardWindow(data)
@@ -82,4 +85,7 @@ class DashboardWindow(QMainWindow):
 		self.dashboard = Login() 
 		self.dashboard.show()  
 		self.close()  
+
+def is_csv(file_path):
+	return file_path.lower().endswith('.csv')		
 			

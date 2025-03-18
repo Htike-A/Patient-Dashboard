@@ -4,10 +4,15 @@ import os
 import joblib
 import pandas as pd
 
+def display_csv(file_name):
+    #file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Feeding Dashboard data.csv")
+    df = pd.read_csv(file_name)
+    df = df.fillna(0)
+    return df.to_dict(orient='records')
+
 def process_csv(file_name):
     
     #file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Feeding Dashboard data.csv")
-
     new_data = pd.read_csv(file_name)
 
     Ids = new_data['encounterId']

@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt
 
 from PyQt6.QtWidgets import (QVBoxLayout, QHBoxLayout, QLabel, QComboBox, QStackedLayout, QPushButton)
-from csvProcessor import process_csv
+from csvProcessor import process_csv, display_csv
 from patientWindow import PatientDisplay
 
 class mainDisplay(QVBoxLayout):
@@ -62,7 +62,7 @@ class mainDisplay(QVBoxLayout):
 		self.stackedLayout = QStackedLayout()
 		self.addLayout(self.stackedLayout)
 		if self.data == None:
-			self.data = process_csv("Feeding Dashboard data.csv")
+			self.data = display_csv("Feeding Dashboard data.csv")
 		
 		display = PatientDisplay(self.stackedLayout, self.data, self.selection)
 		
