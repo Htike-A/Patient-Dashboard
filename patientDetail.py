@@ -45,6 +45,9 @@ class PatientDetailDialog(QDialog):
         layout = QVBoxLayout()
         
         for key, value in patient_data.items():
+            if key != 'referral' and value == 0:
+                value = 'missing'
+            
             layout.addWidget(QLabel(f"{key}: {value}"))
 
 
