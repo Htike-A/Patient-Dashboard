@@ -48,6 +48,18 @@ class DashboardWindow(QMainWindow):
 		logout_button.clicked.connect(self.logout)
 		menu_bar.setCornerWidget(logout_button, Qt.Corner.TopRightCorner)
 		self.setMenuBar(menu_bar)
+
+		logout_button.setStyleSheet("""
+			QPushButton {
+				background-color: transparent;
+				border: none;
+				padding: 5px;
+			}
+			QPushButton:hover {
+				background-color: #e0e0e0;
+				border-radius: 5px;
+			}
+		""")
 				
 		
 	def open_file(self):

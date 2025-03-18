@@ -3,6 +3,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QWidget
 from login import Login
 
+QApplication.setAttribute(Qt.ApplicationAttribute.AA_DontUseNativeMenuBar)
 
 def main():
     app = QApplication(sys.argv)
