@@ -4,9 +4,9 @@ import os
 import joblib
 import pandas as pd
 
-def display_csv(file_name):
+def display_csv():
     #file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Feeding Dashboard data.csv")
-    df = pd.read_csv(file_name)
+    df = pd.read_csv('csv/Feeding Dashboard data.csv')
     df = df.fillna(0)
     return df.to_dict(orient='records')
 

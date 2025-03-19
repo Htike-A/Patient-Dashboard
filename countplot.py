@@ -12,7 +12,7 @@ class CountPlotWindow(QWidget):
         super().__init__()
         self.data = data
         if self.data == None:
-            self.data = display_csv("Feeding Dashboard data.csv")
+            self.data = display_csv()
         self.df = pd.DataFrame.from_dict(self.data)
         self.initUI()
 

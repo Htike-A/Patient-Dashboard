@@ -62,7 +62,7 @@ class mainDisplay(QVBoxLayout):
 		self.stackedLayout = QStackedLayout()
 		self.addLayout(self.stackedLayout)
 		if self.data == None:
-			self.data = display_csv("Feeding Dashboard data.csv")
+			self.data = display_csv()
 		
 		display = PatientDisplay(self.stackedLayout, self.data, self.selection)
 		
